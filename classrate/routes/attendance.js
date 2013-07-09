@@ -5,6 +5,12 @@
 var db = require("../mongodb.js");
 var ObjectId = require("mongojs").ObjectId;
 
+exports.cookiecheckin = function(req, res)
+{
+	var personid = req.params.personid ;
+	
+};
+
 exports.checkin = function(req, res) 
 {
 	var attendance = {

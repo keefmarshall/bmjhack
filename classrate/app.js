@@ -5,6 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , auth = require('./routes/auth')
   , event = require('./routes/event')
   , people = require('./routes/people')
   , attendance = require('./routes/attendance')
@@ -21,6 +22,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
+app.use(express.cookieParser());
 app.use(app.router);
 app.use(require('less-middleware')({ src: __dirname + '/public' }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -31,6 +33,10 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+
+// "AUTH" - not actually sessions, yet, but managing logins
+app.get("/logout", auth.logout);
+app.get("/login/:personid", auth.login);
 
 // EVENTS:
 app.get("/edit-event/:personid", event.createevent);
@@ -46,6 +52,7 @@ app.get("/register/:type", people.registerForm);
 app.post("/register/:type", people.register);
 
 // ATTENDANCE
+app.get("/checkin/:eventid", attendance.cookiecheckin);
 app.all("/checkin/:eventid/:personid", attendance.checkin);
 app.post("/feedback/:attendanceid", attendance.feedback);
 app.get("/attended/:personid", attendance.attended);

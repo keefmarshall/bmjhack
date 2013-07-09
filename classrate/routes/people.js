@@ -3,6 +3,7 @@
  */
 var db = require("../mongodb.js");
 var ObjectId = require("mongojs").ObjectId;
+var auth = require("../routes/auth.js");
 
 exports.get = function(req, res)
 {
@@ -32,6 +33,7 @@ exports.register = function(req, res)
 	db.people.save(person, function(err, saved){
 		if (!err && saved)
 		{
+			auth.setLoginCookie(res, saved._id);
 			if (req.body.app != null)
 			{
 				res.json(saved);
