@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Register for Classrate</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<div id="header"><em>Class</em>RATE</div>
+  	
+    <h1>Register as a <%=type%></h1>
+    <form id="person-form" action="/register/<%=type%>" method="post">
+    	<label for="name">Name</label>
+    	<input type="text" name="name"/>
+    	
+    	<button type="submit">Register</button>
+    </form>
+  </body>
+</html>

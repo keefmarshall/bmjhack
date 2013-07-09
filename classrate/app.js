@@ -1,0 +1,58 @@
+
+/**
+ * Module dependencies.
+ */
+
+var express = require('express')
+  , routes = require('./routes')
+  , event = require('./routes/event')
+  , people = require('./routes/people')
+  , attendance = require('./routes/attendance')
+  , http = require('http')
+  , path = require('path');
+
+var app = express();
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(require('less-middleware')({ src: __dirname + '/public' }));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+app.get('/', routes.index);
+
+// EVENTS:
+app.get("/edit-event/:personid", event.createevent);
+app.get("/event/:eventid", event.get);
+app.post("/event", event.newevent);
+app.get("/eventlist/:tutorid", event.eventlist);
+app.get("/eventlist", event.eventlist);
+
+// PEOPLE:
+app.get("/people", people.list);
+app.get("/person/:personid", people.get);
+app.get("/register/:type", people.registerForm);
+app.post("/register/:type", people.register);
+
+// ATTENDANCE
+app.all("/checkin/:eventid/:personid", attendance.checkin);
+app.post("/feedback/:attendanceid", attendance.feedback);
+app.get("/attended/:personid", attendance.attended);
+app.get("/attendees/:eventid", attendance.attendees);
+app.get("/attendance/:attendanceid", attendance.get);
+
+
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>All registered people</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  	<div id="header"><em>Class</em>RATE</div>
+  	  
+    <h1>All people</h1>
+    
+    <ul>
+	<% for(var i=0; i<people.length; i++) {%>
+	   <li><a href="/person/<%=people[i]._id%>"><%= people[i].name %></a></li>
+	<% } %>
+	</ul>
+    
+  </body>
+</html>
