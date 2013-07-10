@@ -10,7 +10,7 @@ exports.get = function(req, res)
 	db.people.findOne({"_id" : ObjectId(req.params.personid)}, function(err, person) {
         if (err || !person) {res.send("Person " + req.params.person + " not found."); return; };
 
-        res.render(person.type, {person : person});
+        res.render("profile", {person : person});
 	});
 
 };
@@ -23,45 +23,19 @@ exports.list = function(req, res)
 };
 
 
-function createNewPerson(person, app, res)
-{
-	db.people.save(person, function(err, saved){
-		if (!err && saved)
-		{
-			auth.setLoginCookie(res, saved._id);
-			if (app != null)
-			{
-				res.json(saved);
-			}
-			else
-			{
-				res.render(saved.type, {"person" : saved});
-			}
-		}
-	});
-
-}
-
 exports.register = function(req, res)
 {
 	var person = {
 			"name" : req.body.name,
 			"code" : req.body.code,
-			"type" : req.params.type
+			"type" : req.params.type || "tutor"
 			};
 	
 	db.people.save(person, function(err, saved){
 		if (!err && saved)
 		{
 			auth.setLoginCookie(res, saved._id);
-			if (req.body.app != null)
-			{
-				res.json(saved);
-			}
-			else
-			{
-				res.render(saved.type, {"person" : saved});
-			}
+			res.redirect("/person/" + saved._id);
 		}
 	});
 };

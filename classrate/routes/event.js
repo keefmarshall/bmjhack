@@ -47,8 +47,50 @@ exports.eventlist = function(req, res)
 	{
 		var tutorid = req.params.tutorid;
 		db.events.find({"tutorid" : tutorid}, function(err, events) {
-			res.render("eventlist", {"events" : events, "tutorid" : tutorid});
+			if (!err && events)
+			{
+				var eventids = [];
+				var eventMap = {};
+				for (var i = 0; i < events.length; i++)
+				{
+					var event = events[i];
+					event.attendanceCount = 0;
+					event.feedbackCount = 0;
+					eventids.push(event._id + ""); // must be a string
+					eventMap[event._id] = event;
+				}
+				
+				// now find attendances
+				// arguably we should store them like this in Mongo but it makes it 
+				// harder to search attendances by attendee.. this is relational data really
+				db.attendances.find({"eventid" : { "$in" : eventids}}, function(err, atts) {
+					console.log("Got atts = " + atts);
+					if (!err && atts)
+					{
+						for (var i = 0; i < atts.length; i++)
+						{
+							console.log("here");
+							var att = atts[i];
+							var event = eventMap[att.eventid];
+							event.attendanceCount = event.attendanceCount + 1;
+							if (att.feedback)
+							{
+								event.feedbackCount = event.feedbackCount + 1;
+							}						
+						}
+						res.json(events);
+					}
+					else
+					{
+						console.log(err);
+					}
+						
+				});
+			}
 		});
+		
+		// alternative, we can use attendances because they also contain the name and also then 
+		// allow counting attendees - OH no we can't in case event has no attendances! whoops.
 	}
 	else 
 	{

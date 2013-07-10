@@ -15,10 +15,10 @@ exports.logout = function(req, res)
 	res.redirect("/");
 };
 
-exports.loginscreen = function(req, res)
+exports.register = function(req, res)
 { 
 	console.log("Passed-through eventid = " + req.params.eventid);
-	return res.render("login", { eventid : req.params.eventid });
+	return res.render("register", { eventid : req.params.eventid });
 };
 
 function setLoginCookie(res, personid)

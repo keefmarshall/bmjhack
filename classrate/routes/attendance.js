@@ -32,6 +32,7 @@ function checkin(req, res)
 		if (!err && event)
 		{
 			attendance["event"] = event["name"];
+			attendance["tutorid"] = event["tutorid"];
 			db.people.findOne({"_id" : ObjectId(attendance.personid)}, function(err, person) {
 				console.log("Got person: " + person);
 				attendance.person = person.name;

@@ -35,23 +35,27 @@
   <body>
   	<div id="header"><em>Class</em>RATE</div>
   	
-    <h1><%= event.name %></h1>
-    <h2>Tutor: <%= event.tutor %></h2>
-    
-    <!-- <p>event id: <%= event._id %></p> -->
-    <p><%- event.qr%></p>
-    
-    
-    <div class="row-fluid">
-	    <div class="span6">
-	    	<h2>Attendees</h2>
-	    	<div id="attendees"></div>
-	    </div>
-	    <div class="span6">
-	    	<h2>Feedback</h2>
-		    <div id="feedbacks"></div>
+  	<div class="container">
+  	
+	    <h1><%= event.name %></h1>
+	    <h2>Tutor: <%= event.tutor %></h2>
+	    
+	    <!-- <p>event id: <%= event._id %></p> -->
+	    <p><%- event.qr%></p>
+	    
+	    
+	    <div class="row-fluid">
+		    <div class="span6">
+		    	<h2>Attendees</h2>
+		    	<div id="attendees"></div>
+		    </div>
+		    <div class="span6">
+		    	<h2>Feedback</h2>
+			    <div id="feedbacks"></div>
+			</div>
 		</div>
-	</div>
-	
+		
+	</div> <!-- container -->
+		
   </body>
 </html>
