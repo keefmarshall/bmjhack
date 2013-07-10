@@ -36,6 +36,8 @@ app.get('/', routes.index);
 
 // "AUTH" - not actually sessions, yet, but managing logins
 app.get("/logout", auth.logout);
+app.get("/login", auth.loginscreen); // TODO: loginscreen is actually register, need to fix this
+app.get("/login/:eventid", auth.loginscreen);
 app.get("/login/:personid", auth.login);
 
 // EVENTS:
@@ -50,6 +52,7 @@ app.get("/people", people.list);
 app.get("/person/:personid", people.get);
 app.get("/register/:type", people.registerForm);
 app.post("/register/:type", people.register);
+app.post("/registerandcheckin", people.registerandcheckin);
 
 // ATTENDANCE
 app.get("/checkin/:eventid", attendance.cookiecheckin);

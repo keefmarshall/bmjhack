@@ -39,7 +39,7 @@
 				lines.push("<ul>");
 				$.each(atts, function(row, att){
 					attendances[att._id] = att;
-					lines.push("<li>" + att.event);
+					lines.push("<li><a href='/event/" + att.eventid + "'>" + att.event + "</a> ");
 					if (att.feedback)
 					{
 						lines.push(" <a href='#' id='" + att._id + "' class='view-feedback-link'><i class='icon-certificate'></i>view feedback</a>");
@@ -70,6 +70,7 @@
 				$("#event").html(att.event);
 				$("#feedback-view").html(att.feedback);
 				$("#feedback-view-modal").modal("show");
+				return false;
 			});
 		};
 	</script>

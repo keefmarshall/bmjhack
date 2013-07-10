@@ -22,6 +22,26 @@ exports.list = function(req, res)
 	});
 };
 
+
+function createNewPerson(person, app, res)
+{
+	db.people.save(person, function(err, saved){
+		if (!err && saved)
+		{
+			auth.setLoginCookie(res, saved._id);
+			if (app != null)
+			{
+				res.json(saved);
+			}
+			else
+			{
+				res.render(saved.type, {"person" : saved});
+			}
+		}
+	});
+
+}
+
 exports.register = function(req, res)
 {
 	var person = {
@@ -42,6 +62,23 @@ exports.register = function(req, res)
 			{
 				res.render(saved.type, {"person" : saved});
 			}
+		}
+	});
+};
+
+exports.registerandcheckin = function(req, res)
+{
+	var person = {
+			"name" : req.body.name,
+			"code" : req.body.code,
+			"type" : "student" // if checking in, must be attendee
+			};
+	
+	db.people.save(person, function(err, saved){
+		if (!err && saved)
+		{
+			auth.setLoginCookie(res, saved._id);
+			res.redirect("/checkin/" + req.body.eventid + "/" + saved._id);
 		}
 	});
 };

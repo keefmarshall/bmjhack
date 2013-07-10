@@ -7,30 +7,38 @@ var ObjectId = require("mongojs").ObjectId;
 
 exports.cookiecheckin = function(req, res)
 {
-	var personid = req.params.personid ;
-	
+	if (req.cookies.personid)
+	{
+		return checkin(req, res);
+	}
+	else
+	{
+		res.redirect("/login/" + req.params.eventid);
+	}
 };
 
-exports.checkin = function(req, res) 
+
+
+function checkin(req, res) 
 {
 	var attendance = {
 			eventid : req.params.eventid,
-			personid : req.params.personid,
+			personid : req.params.personid || req.cookies.personid,
 			date : new Date()
 	};
 	
 	// this checks that both event and person exist:
-	db.events.findOne({"_id" : ObjectId(req.params.eventid)}, function(err, event){
+	db.events.findOne({"_id" : ObjectId(attendance.eventid)}, function(err, event){
 		if (!err && event)
 		{
 			attendance["event"] = event["name"];
-			db.people.findOne({"_id" : ObjectId(req.params.personid)}, function(err, person) {
+			db.people.findOne({"_id" : ObjectId(attendance.personid)}, function(err, person) {
 				console.log("Got person: " + person);
 				attendance.person = person.name;
 				db.attendances.save(attendance, function(err, saved) {
 					if (!err && saved)
 					{
-						res.json(saved);
+						res.redirect("/person/" + saved.personid);
 					}
 				});
 			});
@@ -38,6 +46,9 @@ exports.checkin = function(req, res)
 	});
 	
 };
+
+exports.checkin = checkin;
+
 
 exports.feedback = function(req, res)
 {
