@@ -52,7 +52,8 @@ exports.registerandcheckin = function(req, res)
 		if (!err && saved)
 		{
 			auth.setLoginCookie(res, saved._id);
-			res.redirect("/checkin/" + req.body.eventid + "/" + saved._id);
+			//res.redirect("/checkin/" + req.body.eventid + "/" + saved._id);
+			res.redirect("/checkin/" + req.body.eventid);
 		}
 	});
 };

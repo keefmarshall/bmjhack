@@ -13,6 +13,13 @@ $(function(){
 		showAttendances();
 		return false;
 	});
+	
+	
+	if (window.location.hash.slice(1) == "attendances")
+	{
+		$("#attendances-tab-anchor").click();
+	}
+
 });
 
 function showAttendances()

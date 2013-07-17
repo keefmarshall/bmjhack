@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leave Feedback | ClassRATE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    
+    <link rel='stylesheet' href='/javascripts/bootstrap/css/bootstrap.css' type="text/css" />
+    <link rel='stylesheet' href='/javascripts/bootstrap/css/bootstrap-responsive.css' type="text/css" />
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="/javascripts/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+  </head>
+  <body>
+  	<div id="header"><em>Class</em>RATE</div>
+  	
+  	<div class="container">
+	  	<div id="main" class="jumbotron">
+		    <h1>Leave feedback:</h1>
+
+			<p><small>Event:</small> <em><%=attendance.event%></em></p>
+
+		    <form id="feedback-form" method="POST" action="/feedback">
+		    	<div>
+			    	<input type="hidden" name="attendanceid" value="<%=attendance._id%>"/>
+			    	<textarea class="field span8" id="feedback" name="feedback"></textarea>
+			    </div>
+			    <div>
+			    	<button type="submit" class="btn">Submit</button>
+			    </div>
+		    </form>
+
+		</div>
+		
+		<div class="cookie-message"><small>This site uses cookies to control user sessions. By continuing to use the site you agree to this.</small></div>
+	</div>
+  </body>
+</html>

@@ -42,23 +42,25 @@ app.post("/register", people.register);
 app.get("/login/:personid", auth.login);
 
 // EVENTS:
-app.get("/edit-event/:personid", event.createevent);
+//app.get("/edit-event/:personid", event.createevent);
 app.get("/event/:eventid", event.get);
 app.post("/event", event.newevent);
 app.get("/eventlist/:tutorid", event.eventlist);
-app.get("/eventlist", event.eventlist);
+app.get("/admin/eventlist", event.eventlist);
 
 // PEOPLE:
-app.get("/people", people.list);
-app.get("/person/:personid", people.get);
+app.get("/admin/people", people.list);
+app.get("/person/:personid", people.get); // profile
 
 //app.get("/register/:type", people.registerForm);
 //app.post("/register/:type", people.register);
 app.post("/registerandcheckin", people.registerandcheckin);
 
-// ATTENDANCE
-app.get("/checkin/:eventid", attendance.cookiecheckin);
-app.all("/checkin/:eventid/:personid", attendance.checkin);
+// ATTENDANCE AND FEEDBACK
+app.get("/checkin/:eventid", attendance.cookiecheckin); // URL from QR code
+// app.all("/checkin/:eventid/:personid", attendance.checkin); // was the url from app
+app.get("/feedback/:attendanceid", attendance.leavefeedback);
+app.post("/feedback", attendance.feedback); // attendanceid passed in POST body
 app.post("/feedback/:attendanceid", attendance.feedback);
 app.get("/attended/:personid", attendance.attended);
 app.get("/attendees/:eventid", attendance.attendees);
