@@ -1,9 +1,9 @@
 $(function() {
 
+	//$("#new-event-button").click(createEventPopup); // all done inline in bootstrap
 	loadCreatedEvents();
 	
 });
-
 
 function loadCreatedEvents()
 {
