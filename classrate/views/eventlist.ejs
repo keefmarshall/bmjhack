@@ -2,17 +2,17 @@
 <html>
   <head>
   	<% if (tutorid != "") { %>
-	  	<title>Events for Tutor: <%= tutorid %></title>
+	  	<title><%= tutorid %> | Events | Backfood</title>
   	<% } else { %>
-	    <title>All Events</title>
+	    <title>All Events | Backfood</title>
 	<% } %>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-  	<div id="header"><em>Class</em>RATE</div>
+  	<div id="header">Backfood</div>
   	
   	<% if (tutorid) {%>
-		<h1>Events for tutor <%=tutorid%></h1>
+		<h1>Events organised by <%=tutorid%></h1>
 	<% } else { %>
 	    <h1>All events</h1>
     <% } %>

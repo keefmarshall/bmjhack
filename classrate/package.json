@@ -1,6 +1,9 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "Backfood",
+  "version": "0.1.0",
+  "author" : "Keith Marshall",
+  "contributors" : [{ "name" : "Chris Filip" }],
+  "description" : "Feedback and attendance-tracking tool. Formerly known as ClassRATE.",
   "private": true,
   "scripts": {
     "start": "node app.js"
